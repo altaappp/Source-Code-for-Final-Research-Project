@@ -1,0 +1,32 @@
+sudo python3 -m http.server 8080
+
+at home, cd ~/zeek_logs
+
+sudo /usr/local/zeek/bin/zeek -i enp0s3
+
+sudo tcpdump -i enp0s3 -w benign.pcap
+
+tail -f http.log
+
+cd kafka_2.13-3.9.0
+
+/home/altaf/kafka_2.13-3.9.0/bin/zookeeper-server-start.sh config/zookeeper.properties
+
+/home/altaf/kafka_2.13-3.9.0/bin/kafka-server-start.sh config/server.properties
+
+#in /usr/local/zeek/share/zeek/site
+
+sudo /usr/local/zeek/bin/zeek -i enp0s3 local.zeek
+
+#back to kafka_2.13-3.9.0
+/home/altaf/kafka_2.13-3.9.0/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic zeek_logs --from-beginning
+
+loic hoic
+
+
+goldeneye = goldeneye.py http://ip -w 10 -s 100
+
+slowloris = python3 slowloris.py ip
+
+zeek-cut id.orig_h < conn.log | grep ip
+grep ip conn.log > hulk.log
